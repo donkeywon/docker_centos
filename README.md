@@ -1,1 +1,17 @@
 # Docker开发环境(CentOS8版本)
+- base (基础镜像)
+- openresty
+- php
+- build-base (编译环境)
+- elasticsearch
+- kibana
+- influxdb
+- grafana
+- kafka
+- zookeeper
+- mysql
+- mongodb
+- redis
+- memcached
+- gitea
+- yapi
