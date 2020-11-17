@@ -1,10 +1,13 @@
 FROM donkeywon/centos-base
 MAINTAINER donkeywon K <donkeywon@163.com>
 
+ENV BASE_PATH=/opt
 ENV GOLANG_VERSION=1.15.5
 ENV NODEJS_VERSION=14.15.1
-ENV NODE_HOME=/usr/local/env/node
-ENV BASE_PATH=/usr/local/env
+ENV NODE_HOME=${BASE_PATH}/node
+ENV GOROOT=${BASE_PATH}/go
+ENV GOPATH=/root/workspace/gopath
+ENV PATH=$GOROOT/bin:$NODE_HOME/bin:$PATH
 
 RUN dnf groupinstall -y "Development Tools"
 RUN dnf install -y python3-devel lua-devel luajit-devel perl-devel glibc-static vim-enhanced
@@ -25,17 +28,12 @@ RUN mkdir -p ${BASE_PATH}/ && \
     tar zxf /tmp/go${GOLANG_VERSION}.linux-amd64.tar.gz -C ${BASE_PATH}/ && \
     mv ${BASE_PATH}/go ${BASE_PATH}/go${GOLANG_VERSION} && \
     ln -s ${BASE_PATH}/go${GOLANG_VERSION} ${BASE_PATH}/go && \
-    rm -f /tmp/go${GOLANG_VERSION}.linux-amd64.tar.gz && \
-    echo "export GOROOT=${BASE_PATH}/go" >> /etc/profile.d/golang.sh && \
-    echo "export GOPATH=/root/workspace/gopath" >> /etc/profile.d/golang.sh && \
-    echo "export PATH=\$GOROOT/bin:\$GOPATH/bin:\$PATH" >> /etc/profile.d/golang.sh
+    rm -f /tmp/go${GOLANG_VERSION}.linux-amd64.tar.gz
 
 RUN wget https://npm.taobao.org/mirrors/node/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.gz -O /root/node-v${NODEJS_VERSION}-linux-x64.tar.gz && \
     tar zxf /root/node-v${NODEJS_VERSION}-linux-x64.tar.gz -C ${BASE_PATH} && \
     ln -s ${BASE_PATH}/node-v${NODEJS_VERSION}-linux-x64 ${NODE_HOME} && \
     rm -f /root/node-v${NODEJS_VERSION}-linux-x64.tar.gz && \
-    echo "export NODE_HOME=${BASE_PATH}/node" >> /etc/profile.d/nodejs.sh && \
-    echo "export PATH=\$PATH:\$NODE_HOME/bin" >> /etc/profile.d/nodejs.sh && \
     echo "${NODE_HOME}/bin/npm config set registry https://registry.npm.taobao.org" > /root/set_npm_registry.sh
 
 RUN echo "sh /opt/base.sh" >> /opt/start_build_base.sh

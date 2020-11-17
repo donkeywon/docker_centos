@@ -1,20 +1,21 @@
 FROM donkeywon/centos-base
 MAINTAINER donkeywon K <donkeywon@163.com>
 
-RUN dnf install -y libpq libatomic_ops libxslt gd geoip gperftools-libs perl
-
+ENV BASE_PATH=/opt
+ENV OPENRESTY_HOME=$BASE_PATH/openresty
 ENV OPENRESTY_VERSION=1.19.3.1
 
-RUN mkdir -p /usr/local/env
-COPY openresty-${OPENRESTY_VERSION}.tar.xz /usr/local/env/
-RUN tar Jxpf /usr/local/env/openresty-${OPENRESTY_VERSION}.tar.xz -C /usr/local/env/ \
-    && rm -f /usr/local/env/openresty-${OPENRESTY_VERSION}.tar.xz \
-    && ln -s /usr/local/env/openresty-${OPENRESTY_VERSION} /usr/local/env/openresty \
-    && cp -r /usr/local/env/openresty/perl5 /usr/local/lib64/ \
-    && ln -s /usr/local/env/openresty/bin/openresty /usr/local/bin/openresty
+RUN dnf install -y libpq libatomic_ops libxslt gd geoip gperftools-libs perl
+
+COPY openresty-${OPENRESTY_VERSION}.tar.xz ${BASE_PATH}
+RUN tar Jxpf ${BASE_PATH}/openresty-${OPENRESTY_VERSION}.tar.xz -C ${BASE_PATH} \
+    && rm -f ${BASE_PATH}/openresty-${OPENRESTY_VERSION}.tar.xz \
+    && ln -s ${BASE_PATH}/openresty-${OPENRESTY_VERSION} ${OPENRESTY_HOME} \
+    && cp -r ${OPENRESTY_HOME}/perl5 /usr/local/lib64/ \
+    && ln -s ${OPENRESTY_HOME}/bin/openresty /usr/local/bin/openresty
 
 RUN echo "sh /opt/base.sh" >> /opt/start_openresty.sh
-RUN echo "/usr/local/env/openresty/bin/openresty" >> /opt/start_openresty.sh
+RUN echo "${OPENRESTY_HOME}/bin/openresty" >> /opt/start_openresty.sh
 RUN echo "tail -f /dev/null" >> /opt/start_openresty.sh
 RUN chmod 777 /opt/start_openresty.sh
 

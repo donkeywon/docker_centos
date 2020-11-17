@@ -1,21 +1,21 @@
 FROM donkeywon/centos-base
 MAINTAINER donkeywon K <donkeywon@163.com>
 
-RUN dnf install -y libpng libicu libmemcached aspell recode libsodium libxslt libyaml libnghttp2 graphviz librdkafka libzip libtidy net-snmp oniguruma
+RUN dnf install -y libpng libicu libmemcached aspell recode libsodium libxslt libyaml libnghttp2 graphviz librdkafka libzip libtidy net-snmp oniguruma libpq
 
+ENV BASE_PATH=/opt
 ENV PHP_VERSION=7.4.12
-RUN mkdir -p /usr/local/env
-COPY php-${PHP_VERSION}.tar.xz /usr/local/env/
-RUN tar Jxf /usr/local/env/php-${PHP_VERSION}.tar.xz -C /usr/local/env/ \
-    && rm -f /usr/local/env/php-${PHP_VERSION}.tar.xz \
-    && ln -s /usr/local/env/php-${PHP_VERSION} /usr/local/env/php
+ENV PHP_HOME=$BASE_PATH/php
+ENV PHP_IDE_CONFIG="serverName=localhost"
+ENV PATH=$PHP_HOME/bin:$PATH
 
-RUN echo 'export PHP_IDE_CONFIG="serverName=dkw-dev.com"' >> /etc/profile.d/php.sh
-RUN echo 'export PHP_HOME=/usr/local/env/php' >> /etc/profile.d/php.sh
-RUN echo 'export PATH=$PHP_HOME/bin:$PATH' >> /etc/profile.d/php.sh
+COPY php-${PHP_VERSION}.tar.xz ${BASE_PATH}
+RUN tar Jxf ${BASE_PATH}/php-${PHP_VERSION}.tar.xz -C ${BASE_PATH} \
+    && rm -f ${BASE_PATH}/php-${PHP_VERSION}.tar.xz \
+    && ln -s ${BASE_PATH}/php-${PHP_VERSION} ${PHP_HOME}
 
 RUN echo "sh /opt/base.sh" >> /opt/start_php.sh
-RUN echo "/usr/local/env/php/sbin/php-fpm --nodaemonize -R --fpm-config /usr/local/env/php/etc/php-fpm.conf" >> /opt/start_php.sh
+RUN echo "${PHP_HOME}/sbin/php-fpm --nodaemonize -R --fpm-config ${PHP_HOME}/etc/php-fpm.conf" >> /opt/start_php.sh
 RUN chmod 777 /opt/start_php.sh
 
 RUN dnf clean all && \

@@ -1,6 +1,6 @@
 OPENRESTY_VERSION=1.19.3.1
 OPENRESTY_VERSION_FULL=${OPENRESTY_VERSION}
-BASE_PATH=/usr/local/env
+BASE_PATH=/opt
 OPENRESTY_PATH=${BASE_PATH}/openresty-${OPENRESTY_VERSION_FULL}
 
 if [[ $1 = "dev" ]]; then
@@ -85,8 +85,8 @@ include fastcgi.conf;
 EOF
 
 cat > ${OPENRESTY_PATH}/nginx/conf/lua.conf <<"EOF"
-lua_package_path '/usr/local/env/openresty/luascript/?.lua;/usr/local/env/openresty/lualib/?.lua;';
-lua_package_cpath '/usr/local/env/openresty/lualib/?.so;';
+lua_package_path '/opt/openresty/luascript/?.lua;/opt/openresty/lualib/?.lua;';
+lua_package_cpath '/opt/openresty/lualib/?.so;';
 lua_shared_dict count 1M;
 lua_shared_dict turl_map 100k;
 lua_shared_dict turl_hit 100k;

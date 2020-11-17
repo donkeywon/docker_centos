@@ -3,19 +3,15 @@ MAINTAINER donkeywon K <donkeywon@163.com>
 
 ENV YAPI_VERSION=1.9.2
 ENV NODEJS_VERSION=14.15.1
-ENV BASE_PATH=/usr/local/env
-ENV YAPI_PATH=/usr/local/env/yapi
-ENV NODE_HOME=/usr/local/env/node
-ENV PATH $NODE_HOME/bin:$PATH
+ENV BASE_PATH=/opt
+ENV YAPI_PATH=$BASE_PATH/yapi
+ENV NODE_HOME=$BASE_PATH/node
+ENV PATH=$NODE_HOME/bin:$PATH
 
-RUN mkdir -p ${BASE_PATH}
 RUN wget https://npm.taobao.org/mirrors/node/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.gz -O /root/node-v${NODEJS_VERSION}-linux-x64.tar.gz && \
     tar zxf /root/node-v${NODEJS_VERSION}-linux-x64.tar.gz -C ${BASE_PATH} && \
     ln -s ${BASE_PATH}/node-v${NODEJS_VERSION}-linux-x64 ${NODE_HOME} && \
     rm -f /root/node-v${NODEJS_VERSION}-linux-x64.tar.gz
-
-RUN echo "export NODE_HOME=${BASE_PATH}/node" >> /etc/profile.d/nodejs.sh
-RUN echo "export PATH=\$PATH:\$NODE_HOME/bin" >> /etc/profile.d/nodejs.sh
 
 RUN mkdir -p ${YAPI_PATH} && \
     wget https://github.com/YMFE/yapi/archive/v${YAPI_VERSION}.tar.gz -O ${YAPI_PATH}/yapi.tar.gz && \
