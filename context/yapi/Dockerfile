@@ -2,7 +2,7 @@ FROM donkeywon/centos-base
 MAINTAINER donkeywon K <donkeywon@163.com>
 
 ENV YAPI_VERSION=1.9.2
-ENV NODEJS_VERSION=12.19.0
+ENV NODEJS_VERSION=14.15.1
 ENV BASE_PATH=/usr/local/env
 ENV YAPI_PATH=/usr/local/env/yapi
 ENV NODE_HOME=/usr/local/env/node

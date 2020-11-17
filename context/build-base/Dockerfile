@@ -2,7 +2,7 @@ FROM donkeywon/centos-base
 MAINTAINER donkeywon K <donkeywon@163.com>
 
 ENV GOLANG_VERSION=1.15.5
-ENV NODEJS_VERSION=14.15.0
+ENV NODEJS_VERSION=14.15.1
 ENV NODE_HOME=/usr/local/env/node
 ENV BASE_PATH=/usr/local/env
 
