@@ -1,0 +1,6 @@
+/data/es/node1/data/*
+/data/grafana/data/*
+/data/influxdb/data/*
+/data/mysql/data/*
+/data/redis/data/*
+*.DS_Store

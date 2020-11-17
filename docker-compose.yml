@@ -1,0 +1,243 @@
+version: "3.7"
+services:
+  base:
+    hostname: base
+    container_name: base
+    image: donkeywon/centos-base
+    build:
+      context: ./context/base
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.2
+    volumes:
+      - ../../:/shared
+  build-base:
+    hostname: build-base
+    container_name: build-base
+    image: donkeywon/centos-build-base
+    privileged: true
+    build:
+      context: ./context/build-base
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.254
+    volumes:
+      - ../../:/shared
+  php:
+    hostname: php
+    container_name: php
+    image: donkeywon/centos-php
+    privileged: true
+    build:
+      context: ./context/php
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.3
+    volumes:
+      - ../../:/shared
+  openresty:
+    hostname: openresty
+    container_name: openresty
+    image: donkeywon/centos-openresty
+    privileged: true
+    build:
+      context: ./context/openresty
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.4
+    volumes:
+      - ../../:/shared
+    ports:
+      - "80:80"
+  influxdb:
+    hostname: influxdb
+    container_name: influxdb
+    image: donkeywon/centos-influxdb
+    privileged: true
+    build:
+      context: ./context/influxdb
+      dockerfile: Dockerfile
+    ports:
+      - "8086:8086"
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.5
+    volumes:
+      - ../../:/shared
+  redis:
+    hostname: redis
+    container_name: redis
+    image: donkeywon/centos-redis
+    privileged: true
+    build:
+      context: ./context/redis
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.6
+    volumes:
+      - ../../:/shared
+  memcached:
+    hostname: memcached
+    container_name: memcached
+    image: donkeywon/centos-memcached
+    privileged: true
+    build:
+      context: ./context/memcached
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.7
+    volumes:
+      - ../../:/shared
+  kibana:
+    hostname: kibana
+    container_name: kibana
+    image: donkeywon/centos-kibana
+    privileged: true
+    build:
+      context: ./context/kibana
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.8
+    ports:
+      - "5601:5601"
+    volumes:
+      - ../../:/shared
+  gitea:
+    hostname: gitea
+    container_name: gitea
+    image: donkeywon/centos-gitea
+    privileged: true
+    build:
+      context: ./context/gitea
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.9
+    ports:
+      - "3000:3000"
+    volumes:
+      - /Users/donkeywon/OneDrive:/onedrive
+      - ../../:/shared
+  es-node1:
+    hostname: es-node1
+    container_name: es-node1
+    image: donkeywon/centos-es-node1
+    privileged: true
+    build:
+      context: ./context/es
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.10
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ../../:/shared
+  mysql:
+    hostname: mysql
+    container_name: mysql
+    image: donkeywon/centos-mysql
+    privileged: true
+    build:
+      context: ./context/mysql
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.11
+    ports:
+      - "3306:3306"
+    volumes:
+      - ../../:/shared
+  mongodb:
+    hostname: mongodb
+    container_name: mongodb
+    image: donkeywon/centos-mongodb
+    privileged: true
+    build:
+      context: ./context/mongodb
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.12
+    ports:
+      - "27017:27017"
+    volumes:
+      - ../../:/shared
+      - /Users/donkeywon/OneDrive:/onedrive
+  kafka:
+    hostname: kafka
+    container_name: kafka
+    image: donkeywon/centos-kafka
+    privileged: true
+    build:
+      context: ./context/kafka
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.20
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    volumes:
+      - ../../:/shared
+  zookeeper:
+    hostname: zookeeper
+    container_name: zookeeper
+    image: donkeywon/centos-zookeeper
+    privileged: true
+    build:
+      context: ./context/zookeeper
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.21
+    ports:
+      - "2181:2181"
+    volumes:
+      - ../../:/shared
+  yapi:
+    hostname: yapi
+    container_name: yapi
+    image: donkeywon/centos-yapi
+    privileged: true
+    build:
+      context: ./context/yapi
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.40
+    ports:
+      - "9091:9091"
+    volumes:
+      - ../../:/shared
+  grafana:
+    hostname: grafana
+    container_name: grafana
+    image: donkeywon/centos-grafana
+    privileged: true
+    build:
+      context: ./context/grafana
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.22
+    ports:
+      - "3001:3001"
+    volumes:
+      - ../../:/shared
+
+networks:
+  a-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16

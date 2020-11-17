@@ -1,0 +1,19 @@
+{
+   "port": "9091",
+   "adminAccount": "donkeywon@163.com",
+   "db": {
+      "servername": "172.19.0.12",
+      "DATABASE": "yapi",
+      "port": "27017"
+   },
+   "mail": {
+      "enable": false,
+      "host": "smtp.163.com",
+      "port": 465,
+      "from": "donkeywon@163.com",
+      "auth": {
+         "user": "donkeywon@163.com",
+         "pass": "CUAPARYVYQAGWEPO"
+      }
+   }
+}
