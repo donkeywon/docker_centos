@@ -1,6 +1,16 @@
 /data/es/node1/data/*
+!/data/es/node1/data/.gitkeep
+
 /data/grafana/data/*
+!/data/grafana/data/.gitkeep
+
 /data/influxdb/data/*
+!/data/influxdb/data/.gitkeep
+
 /data/mysql/data/*
+!/data/mysql/data/.gitkeep
+
 /data/redis/data/*
+!/data/redis/data/.gitkeep
+
 *.DS_Store
