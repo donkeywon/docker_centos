@@ -1,7 +1,7 @@
 FROM donkeywon/centos-base
 MAINTAINER donkeywon K <donkeywon@163.com>
 
-ENV GITEA_VERSION=1.12.5
+ENV GITEA_VERSION=1.12.6
 ENV GIT_VERSION=2.29.2
 ENV BASE_PATH=/usr/local/env
 
