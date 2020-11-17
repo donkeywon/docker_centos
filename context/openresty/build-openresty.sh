@@ -3,6 +3,14 @@ OPENRESTY_VERSION_FULL=${OPENRESTY_VERSION}
 BASE_PATH=/usr/local/env
 OPENRESTY_PATH=${BASE_PATH}/openresty-${OPENRESTY_VERSION_FULL}
 
+if [[ $1 = "dev" ]]; then
+    CFLAGS="-g -O2"
+    CXXFLAGS="-g -O2"
+else
+    CFLAGS="-Os"
+    CXXFLAGS="-Os"
+fi
+
 mkdir -p ${OPENRESTY_PATH}
 cd ${OPENRESTY_PATH}
 wget https://openresty.org/download/openresty-${OPENRESTY_VERSION}.tar.gz
@@ -11,13 +19,13 @@ rm -f openresty-${OPENRESTY_VERSION}.tar.gz
 mv openresty-${OPENRESTY_VERSION} src
 cd src
 
-CFLAGS="-Os" ./configure \
+./configure \
 --prefix=${OPENRESTY_PATH} \
---with-cc-opt='-Os -s -DNGX_LUA_ABORT_AT_PANIC' \
+--with-cc-opt="${CFLAGS} -DNGX_LUA_ABORT_AT_PANIC" \
 -j8 \
 --with-http_iconv_module \
 --with-http_postgres_module \
---with-luajit-xcflags="-Os -s" \
+--with-luajit-xcflags="${CFLAGS}" \
 --with-threads \
 --with-file-aio \
 --with-http_ssl_module \
@@ -61,7 +69,9 @@ make install
 cp -r /usr/local/lib64/perl5 ${OPENRESTY_PATH}/
 make clean
 
-cd ${OPENRESTY_PATH} && rm -rf src && find . -name '*' | xargs strip
+if [[ $1 != "dev" ]]; then
+    cd ${OPENRESTY_PATH} && rm -rf src && find . -name '*' | xargs strip
+fi
 
 mkdir ${OPENRESTY_PATH}/luascript
 

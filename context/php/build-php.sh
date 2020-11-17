@@ -13,11 +13,19 @@ EVENT_VERSION=2.5.7
 YAC_VERSION=2.2.1
 YAML_VERSION=2.1.0
 ZEPHIR_PARSER_VERSION=v1.3.4
-SWOOLE_VERSION=4.5.5
-MONGODB_VERSION=1.8.1
+SWOOLE_VERSION=4.5.7
+MONGODB_VERSION=1.8.2
 GRPC_VERSION=1.33.1
-PROTOBUF_VERSION=3.13.0.1
+PROTOBUF_VERSION=3.14.0
 XDEBUG_VERSION=2.9.8
+
+if [[ $1 = "dev" ]]; then
+    CFLAGS="-g -O2"
+    CXXFLAGS="-g -O2"
+else
+    CFLAGS="-Os"
+    CXXFLAGS="-Os"
+fi
 
 mkdir -p ${PHP_PATH}
 
@@ -83,8 +91,8 @@ cd src
 --with-xsl=shared \
 --with-zip=shared \
 --enable-mysqlnd \
-CFLAGS="-Os" \
-CXXFLAGS="-Os"
+CFLAGS="${CFLAGS}" \
+CXXFLAGS="${CXXFLAGS}"
 
 make -j8
 make install
@@ -160,7 +168,7 @@ tar zxf msgpack-${MSGPACK_VERSION}.tgz
 rm -f msgpack-${MSGPACK_VERSION}.tgz
 cd msgpack-${MSGPACK_VERSION}
 ${PHP_BIN_PATH}/phpize
-./configure --with-php-config=${PHP_BIN_PATH}/php-config --with-msgpack CFLAGS="-Os" CXXFLAGS="-Os"
+./configure --with-php-config=${PHP_BIN_PATH}/php-config --with-msgpack CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 make -j8
 make install
 make distclean
@@ -172,7 +180,7 @@ tar zxf igbinary-${IGBINARY_VERSION}.tgz
 rm -f igbinary-${IGBINARY_VERSION}.tgz
 cd igbinary-${IGBINARY_VERSION}
 ${PHP_BIN_PATH}/phpize
-./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-igbinary CFLAGS="-Os" CXXFLAGS="-Os"
+./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-igbinary CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 make -j8
 make install
 make distclean
@@ -184,7 +192,7 @@ tar zxf memcached-${MEMCACHED_VERSION}.tgz
 rm -f memcached-${MEMCACHED_VERSION}.tgz
 cd memcached-${MEMCACHED_VERSION}
 ${PHP_BIN_PATH}/phpize
-./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-memcached-igbinary --enable-memcached-json --enable-memcached-msgpack --disable-memcached-sasl CFLAGS="-Os" CXXFLAGS="-Os"
+./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-memcached-igbinary --enable-memcached-json --enable-memcached-msgpack --disable-memcached-sasl CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 make -j8
 make install
 make distclean
@@ -196,7 +204,7 @@ tar zxf redis-${REDIS_VERSION}.tgz
 rm -f redis-${REDIS_VERSION}.tgz
 cd redis-${REDIS_VERSION}
 ${PHP_BIN_PATH}/phpize
-./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-redis --enable-redis-igbinary --enable-redis-msgpack CFLAGS="-Os" CXXFLAGS="-Os"
+./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-redis --enable-redis-igbinary --enable-redis-msgpack CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 make -j8
 make install
 make distclean
@@ -208,7 +216,7 @@ tar zxf event-${EVENT_VERSION}.tgz
 rm -f event-${EVENT_VERSION}.tgz
 cd event-${EVENT_VERSION}
 ${PHP_BIN_PATH}/phpize
-./configure --with-php-config=${PHP_BIN_PATH}/php-config --with-event-core --with-event-extra --with-event-openssl --enable-event-sockets CFLAGS="-Os" CXXFLAGS="-Os"
+./configure --with-php-config=${PHP_BIN_PATH}/php-config --with-event-core --with-event-extra --with-event-openssl --enable-event-sockets CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 make -j8
 make install
 make distclean
@@ -220,7 +228,7 @@ tar zxf swoole-${SWOOLE_VERSION}.tgz
 rm -f swoole-${SWOOLE_VERSION}.tgz
 cd swoole-${SWOOLE_VERSION}
 ${PHP_BIN_PATH}/phpize
-./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-sockets --enable-openssl --with-openssl-dir=/usr --enable-http2 --enable-swoole --enable-mysqlnd CFLAGS="-Os" CXXFLAGS="-Os"
+./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-sockets --enable-openssl --with-openssl-dir=/usr --enable-http2 --enable-swoole --enable-mysqlnd CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 make -j8
 make install
 make distclean
@@ -232,7 +240,7 @@ tar zxf yac-${YAC_VERSION}.tgz
 rm -f yac-${YAC_VERSION}.tgz
 cd yac-${YAC_VERSION}
 ${PHP_BIN_PATH}/phpize
-./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-yac CFLAGS="-Os" CXXFLAGS="-Os"
+./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-yac CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 make -j8
 make install
 make distclean
@@ -244,7 +252,7 @@ tar zxf mongodb-${MONGODB_VERSION}.tgz
 rm -f mongodb-${MONGODB_VERSION}.tgz
 cd mongodb-${MONGODB_VERSION}
 ${PHP_BIN_PATH}/phpize
-./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-mongodb CFLAGS="-Os" CXXFLAGS="-Os"
+./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-mongodb CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 make -j8
 make install
 make distclean
@@ -256,7 +264,7 @@ tar zxf yaml-${YAML_VERSION}.tgz
 rm -f yaml-${YAML_VERSION}.tgz
 cd yaml-${YAML_VERSION}
 ${PHP_BIN_PATH}/phpize
-./configure --with-php-config=${PHP_BIN_PATH}/php-config --with-yaml CFLAGS="-Os" CXXFLAGS="-Os"
+./configure --with-php-config=${PHP_BIN_PATH}/php-config --with-yaml CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 make -j8
 make install
 make distclean
@@ -268,7 +276,7 @@ tar zxf protobuf-${PROTOBUF_VERSION}.tgz
 rm -f protobuf-${PROTOBUF_VERSION}.tgz
 cd protobuf-${PROTOBUF_VERSION}
 ${PHP_BIN_PATH}/phpize
-./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-protobuf CFLAGS="-Os" CXXFLAGS="-Os"
+./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-protobuf CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 make -j8
 make install
 make distclean
@@ -279,9 +287,11 @@ wget http://pecl.php.net/get/grpc-${GRPC_VERSION}.tgz
 tar zxf grpc-${GRPC_VERSION}.tgz
 rm -f grpc-${GRPC_VERSION}.tgz
 cd grpc-${GRPC_VERSION}
-sed -i "s/-g -O2/-s -Os/g" config.m4
+if [[ $1 != "dev" ]]; then
+    sed -i "s/-g -O2/-Os/g" config.m4
+fi
 ${PHP_BIN_PATH}/phpize
-./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-grpc CFLAGS="-Os" CXXFLAGS="-Os"
+./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-grpc CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 make -j8
 make install
 make distclean
@@ -292,7 +302,7 @@ git clone https://github.com/phalcon/php-zephir-parser.git
 cd php-zephir-parser
 git checkout ${ZEPHIR_PARSER_VERSION}
 ${PHP_BIN_PATH}/phpize
-./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-zephir-parser CFLAGS="-Os" CXXFLAGS="-Os"
+./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-zephir-parser CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 make -j8
 make install
 make distclean
@@ -303,9 +313,11 @@ wget http://pecl.php.net/get/xdebug-${XDEBUG_VERSION}.tgz
 tar zxf xdebug-${XDEBUG_VERSION}.tgz
 rm -f xdebug-${XDEBUG_VERSION}.tgz
 cd xdebug-${XDEBUG_VERSION}
-sed -i "s/-g -O2/-s -Os/g" config.m4
+if [[ $1 != "dev" ]]; then
+    sed -i "s/-g -O2/-Os/g" config.m4
+fi
 ${PHP_BIN_PATH}/phpize
-./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-xdebug CFLAGS="-Os" CXXFLAGS="-Os"
+./configure --with-php-config=${PHP_BIN_PATH}/php-config --enable-xdebug CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
 make -j8
 make install
 make distclean
@@ -317,7 +329,9 @@ xdebug.remote_autostart=1
 xdebug.remote_host=host.docker.internal
 EOF
 
-rm -rf ${PHP_PATH}/src
+if [[ $1 != "dev" ]]; then
+    rm -rf ${PHP_PATH}/src
+fi
 
 cd ${BASE_PATH}
 tar -Jcpf php-${PHP_VERSION_FULL}.tar.xz php-${PHP_VERSION_FULL}
