@@ -215,6 +215,8 @@ services:
     networks:
       a-network:
         ipv4_address: 172.19.0.40
+    depends_on:
+      - mongodb
     ports:
       - "9091:9091"
     volumes:
