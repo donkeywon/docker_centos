@@ -25,6 +25,9 @@ services:
         ipv4_address: 172.19.0.254
     volumes:
       - ../../:/shared
+    ports:
+      - "8080:8080"
+      - "1935:1935"
   php:
     hostname: php
     container_name: php
