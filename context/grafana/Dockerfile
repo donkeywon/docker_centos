@@ -2,7 +2,7 @@ FROM donkeywon/centos-base
 MAINTAINER donkeywon K <donkeywon@163.com>
 
 ENV BASE_PATH=/opt
-ENV GRAFANA_VERSION=7.3.3
+ENV GRAFANA_VERSION=7.3.4
 
 RUN wget https://dl.grafana.com/oss/release/grafana-${GRAFANA_VERSION}.linux-amd64.tar.gz -O /tmp/1.tar.gz && \
     tar zxf /tmp/1.tar.gz -C ${BASE_PATH} && \
