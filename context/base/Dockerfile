@@ -6,7 +6,7 @@ RUN mkdir -p /usr/local/env
 RUN echo "fastestmirror=True" >> /etc/dnf/dnf.conf && \
     dnf update -y && \
     dnf install -y glibc-langpack-en epel-release wget net-tools dnf-plugins-core && \
-    dnf config-manager --set-enabled PowerTools && \
+    dnf config-manager --set-enabled powertools && \
     echo "root:qweasd" | chpasswd && \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
 
