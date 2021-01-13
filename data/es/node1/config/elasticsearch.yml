@@ -34,7 +34,7 @@ path.data: /shared/env/docker_centos/data/es/node1/data
 #
 # Path to log files:
 #
-path.logs: /var/log/elasticsearch
+path.logs: logs
 #
 # ----------------------------------- Memory -----------------------------------
 #
