@@ -4,7 +4,7 @@ MAINTAINER donkeywon K <donkeywon@163.com>
 ENV BASE_PATH=/opt
 ENV GRAFANA_VERSION=7.3.6
 
-RUN wget https://dl.grafana.com/oss/release/grafana-${GRAFANA_VERSION}.linux-amd64.tar.gz -O /tmp/1.tar.gz && \
+RUN wget https://mirrors.huaweicloud.com/grafana/${GRAFANA_VERSION}/grafana-${GRAFANA_VERSION}.linux-amd64.tar.gz -O /tmp/1.tar.gz && \
     tar zxf /tmp/1.tar.gz -C ${BASE_PATH} && \
     rm -f /tmp/1.tar.gz && \
     ln -s ${BASE_PATH}/grafana-${GRAFANA_VERSION} ${BASE_PATH}/grafana && \

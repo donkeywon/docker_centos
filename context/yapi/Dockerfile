@@ -2,7 +2,7 @@ FROM donkeywon/centos-base
 MAINTAINER donkeywon K <donkeywon@163.com>
 
 ENV YAPI_VERSION=1.9.2
-ENV NODEJS_VERSION=14.15.1
+ENV NODEJS_VERSION=14.15.4
 ENV BASE_PATH=/opt
 ENV YAPI_PATH=$BASE_PATH/yapi
 ENV NODE_HOME=$BASE_PATH/node
@@ -14,8 +14,8 @@ RUN wget https://npm.taobao.org/mirrors/node/v${NODEJS_VERSION}/node-v${NODEJS_V
     rm -f /root/node-v${NODEJS_VERSION}-linux-x64.tar.gz
 
 RUN mkdir -p ${YAPI_PATH} && \
-    wget https://github.com/YMFE/yapi/archive/v${YAPI_VERSION}.tar.gz -O ${YAPI_PATH}/yapi.tar.gz && \
     cd ${YAPI_PATH} && \
+    wget https://github.com/YMFE/yapi/archive/v${YAPI_VERSION}.tar.gz -O ${YAPI_PATH}/yapi.tar.gz && \
     tar zxf yapi.tar.gz && \
     rm -f yapi.tar.gz && \
     mv yapi-${YAPI_VERSION} vendors && \

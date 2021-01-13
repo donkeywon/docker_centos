@@ -8,7 +8,7 @@ ENV KAFKA_HOME=$BASE_PATH/kafka
 
 RUN dnf install -y java-latest-openjdk
 
-RUN wget https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_${KAFKA_FULL_VERSION}.tgz -O /tmp/kafka_${KAFKA_FULL_VERSION}.tgz && \
+RUN wget https://mirrors.tuna.tsinghua.edu.cn/apache/kafka/${KAFKA_VERSION}/kafka_${KAFKA_FULL_VERSION}.tgz -O /tmp/kafka_${KAFKA_FULL_VERSION}.tgz && \
     tar zxf /tmp/kafka_${KAFKA_FULL_VERSION}.tgz -C ${BASE_PATH} && \
     rm -f /tmp/kafka_${KAFKA_FULL_VERSION}.tgz && \
     ln -s ${BASE_PATH}/kafka_${KAFKA_FULL_VERSION} ${KAFKA_HOME} && \
