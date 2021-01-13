@@ -8,7 +8,11 @@ RUN echo "fastestmirror=True" >> /etc/dnf/dnf.conf && \
     dnf install -y glibc-langpack-en epel-release wget net-tools dnf-plugins-core && \
     dnf config-manager --set-enabled powertools && \
     echo "root:qweasd" | chpasswd && \
-    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    echo "alias ls='ls --color=auto'" >> /root/.bashrc && \
+    echo "alias l='ls -lah'" >> /root/.bashrc && \
+    echo "alias ll='ls -lh'" >> /root/.bashrc && \
+    echo "alias la='ls -lAh'" >> /root/.bashrc
 
 RUN echo "" >> /opt/base.sh
 RUN chmod 777 /opt/base.sh
