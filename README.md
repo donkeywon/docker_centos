@@ -3,7 +3,7 @@
 - openresty
 - php
 - build-base (编译环境)
-- elasticsearch
+- es
 - kibana
 - influxdb
 - grafana
