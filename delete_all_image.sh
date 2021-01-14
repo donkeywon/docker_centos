@@ -6,7 +6,7 @@ docker image rm donkeywon/centos-gitea
 docker image rm donkeywon/centos-influxdb
 docker image rm donkeywon/centos-kafka
 docker image rm donkeywon/centos-kibana
-docker image rm donkeywon/centos-es-node1
+docker image rm donkeywon/centos-es
 docker image rm donkeywon/centos-base
 docker image rm donkeywon/centos-build-base
 docker image rm donkeywon/centos-zookeeper

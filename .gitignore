@@ -1,5 +1,8 @@
-/data/es/node1/data/*
-!/data/es/node1/data/.gitkeep
+/data/es/data/node1/*
+!/data/es/data/node1/.gitkeep
+
+/data/es/data/node2/*
+!/data/es/data/node2/.gitkeep
 
 /data/grafana/data/*
 !/data/grafana/data/.gitkeep

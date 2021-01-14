@@ -128,20 +128,71 @@ services:
     volumes:
       - /Users/donkeywon/OneDrive:/onedrive
       - ../../:/shared
-  es-node1:
-    hostname: es-node1
-    container_name: es-node1
-    image: donkeywon/centos-es-node1
+  es1:
+    hostname: es1
+    container_name: es1
+    image: donkeywon/centos-es
     privileged: true
+    environment:
+      - NODE_NAME=es1
+      - CLUSTER_NAME=docker-es
+      - BOOTSTRAP_MEMORY_LOCK=false
+      - PATH_DATA=/shared/env/docker_centos/data/es/data/node1
+      - PATH_LOGS=logs
+      - NETWORK_HOST=172.19.0.30
+      - HTTP_PORT=9200
+      - DISCOVERY_SEED_HOSTS=es1,es2
+      - CLUSTER_INITIAL_MASTER_NODES=es1,es2
+      - NODE_MASTER=true
+      - NODE_DATA=true
+      - TRANSPORT_TCP_COMPRESS=true
+      - TRANSPORT_TCP_PORT=9300
+      - XPACK_MONITORING_COLLECTION_ENABLED=true
+      - XPACK_MONITORING_ELASTICSEARCH_COLLECTION_ENABLED=false
+      - HTTP_CORS_ENABLED=true
+      - HTTP_CORS_ALLOW_ORIGIN="*"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     build:
       context: ./context/es
       dockerfile: Dockerfile
     networks:
       a-network:
-        ipv4_address: 172.19.0.10
+        ipv4_address: 172.19.0.30
     ports:
       - "9200:9200"
       - "9300:9300"
+    volumes:
+      - ../../:/shared
+  es2:
+    hostname: es2
+    container_name: es2
+    image: donkeywon/centos-es
+    privileged: true
+    environment:
+      - NODE_NAME=es2
+      - CLUSTER_NAME=docker-es
+      - BOOTSTRAP_MEMORY_LOCK=false
+      - PATH_DATA=/shared/env/docker_centos/data/es/data/node2
+      - PATH_LOGS=logs
+      - NETWORK_HOST=172.19.0.31
+      - HTTP_PORT=9200
+      - DISCOVERY_SEED_HOSTS=es1,es2
+      - CLUSTER_INITIAL_MASTER_NODES=es1,es2
+      - NODE_MASTER=true
+      - NODE_DATA=true
+      - TRANSPORT_TCP_COMPRESS=true
+      - TRANSPORT_TCP_PORT=9300
+      - XPACK_MONITORING_COLLECTION_ENABLED=true
+      - XPACK_MONITORING_ELASTICSEARCH_COLLECTION_ENABLED=false
+      - HTTP_CORS_ENABLED=true
+      - HTTP_CORS_ALLOW_ORIGIN="*"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    build:
+      context: ./context/es
+      dockerfile: Dockerfile
+    networks:
+      a-network:
+        ipv4_address: 172.19.0.31
     volumes:
       - ../../:/shared
   mysql:

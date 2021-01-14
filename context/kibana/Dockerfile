@@ -3,7 +3,7 @@ MAINTAINER donkeywon K <donkeywon@163.com>
 
 ENV BASE_PATH=/opt
 ENV KIBANA_HOME=$BASE_PATH/kibana
-ENV KIBANA_VERSION=6.8.13
+ENV KIBANA_VERSION=7.10.1
 ENV KIBANA_VERSION_FULL=${KIBANA_VERSION}-linux-x86_64
 
 RUN wget https://mirrors.huaweicloud.com/kibana/${KIBANA_VERSION}/kibana-${KIBANA_VERSION_FULL}.tar.gz -O /tmp/kibana-${KIBANA_VERSION_FULL}.tar.gz && \
@@ -16,7 +16,7 @@ RUN wget https://mirrors.huaweicloud.com/kibana/${KIBANA_VERSION}/kibana-${KIBAN
 
 RUN echo "sh /opt/base.sh" >> /opt/start_kibana.sh
 RUN echo "sleep 5" >> /opt/start_kibana.sh
-RUN echo "${KIBANA_HOME}/bin/kibana -c ${KIBANA_HOME}/config/kibana.yml" >> /opt/start_kibana.sh
+RUN echo "${KIBANA_HOME}/bin/kibana -c ${KIBANA_HOME}/config/kibana.yml --allow-root" >> /opt/start_kibana.sh
 RUN chmod 777 /opt/start_kibana.sh
 
 ENTRYPOINT ["sh","-c","/opt/start_kibana.sh"]

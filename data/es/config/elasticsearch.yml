@@ -14,13 +14,13 @@
 #
 # Use a descriptive name for your cluster:
 #
-cluster.name: docker-es-node1
+cluster.name: ${CLUSTER_NAME}
 #
 # ------------------------------------ Node ------------------------------------
 #
 # Use a descriptive name for the node:
 #
-node.name: node-1
+node.name: ${NODE_NAME}
 #
 # Add custom attributes to the node:
 #
@@ -30,17 +30,17 @@ node.name: node-1
 #
 # Path to directory where to store the data (separate multiple locations by comma):
 #
-path.data: /shared/env/docker_centos/data/es/node1/data
+path.data: ${PATH_DATA}
 #
 # Path to log files:
 #
-path.logs: logs
+path.logs: ${PATH_LOGS}
 #
 # ----------------------------------- Memory -----------------------------------
 #
 # Lock the memory on startup:
 #
-#bootstrap.memory_lock: true
+#bootstrap.memory_lock: ${BOOTSTRAP_MEMORY_LOCK}
 #
 # Make sure that the heap size is set to about half the memory available
 # on the system and that the owner of the process is allowed to use this
@@ -52,26 +52,26 @@ path.logs: logs
 #
 # Set the bind address to a specific IP (IPv4 or IPv6):
 #
-network.host: 172.19.0.10
+network.host: ${NETWORK_HOST}
 #
 # Set a custom port for HTTP:
 #
-http.port: 9200
+http.port: ${HTTP_PORT}
 #
 # For more information, consult the network module documentation.
 #
 # --------------------------------- Discovery ----------------------------------
 #
-# Pass an initial list of hosts to perform discovery when new node is started:
+# Pass an initial list of hosts to perform discovery when this node is started:
 # The default list of hosts is ["127.0.0.1", "[::1]"]
 #
-#discovery.zen.ping.unicast.hosts: ["host1", "host2"]
+discovery.seed_hosts: ${DISCOVERY_SEED_HOSTS}
 #
-# Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
+# Bootstrap the cluster using an initial set of master-eligible nodes:
 #
-#discovery.zen.minimum_master_nodes: 
+cluster.initial_master_nodes: ${CLUSTER_INITIAL_MASTER_NODES}
 #
-# For more information, consult the zen discovery module documentation.
+# For more information, consult the discovery and cluster formation module documentation.
 #
 # ---------------------------------- Gateway -----------------------------------
 #
@@ -87,10 +87,11 @@ http.port: 9200
 #
 #action.destructive_requires_name: true
 
-node.master: true
-node.data: true
-transport.tcp.compress: true
-transport.tcp.port: 9300
-xpack.monitoring.collection.enabled: true
-http.cors.enabled: true
-http.cors.allow-origin: "*"
+node.master: ${NODE_MASTER}
+node.data: ${NODE_DATA}
+transport.tcp.compress: ${TRANSPORT_TCP_COMPRESS}
+transport.tcp.port: ${TRANSPORT_TCP_PORT}
+xpack.monitoring.collection.enabled: ${XPACK_MONITORING_COLLECTION_ENABLED}
+xpack.monitoring.elasticsearch.collection.enabled: ${XPACK_MONITORING_ELASTICSEARCH_COLLECTION_ENABLED}
+http.cors.enabled: ${HTTP_CORS_ENABLED}
+http.cors.allow-origin: ${HTTP_CORS_ALLOW_ORIGIN}
