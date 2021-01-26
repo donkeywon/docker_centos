@@ -3,7 +3,7 @@ MAINTAINER donkeywon K <donkeywon@163.com>
 
 ENV BASE_PATH=/opt
 ENV KIBANA_HOME=$BASE_PATH/kibana
-ENV KIBANA_VERSION=7.10.1
+ENV KIBANA_VERSION=7.10.2
 ENV KIBANA_VERSION_FULL=${KIBANA_VERSION}-linux-x86_64
 
 RUN wget https://mirrors.huaweicloud.com/kibana/${KIBANA_VERSION}/kibana-${KIBANA_VERSION_FULL}.tar.gz -O /tmp/kibana-${KIBANA_VERSION_FULL}.tar.gz && \

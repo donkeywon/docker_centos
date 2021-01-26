@@ -1,7 +1,7 @@
 FROM donkeywon/centos-base
 MAINTAINER donkeywon K <donkeywon@163.com>
 
-ENV ES_VERSION=7.10.1
+ENV ES_VERSION=7.10.2
 ENV ES_VERSION_FULL=${ES_VERSION}-linux-x86_64
 
 ENV BASE_PATH=/opt
