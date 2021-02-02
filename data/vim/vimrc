@@ -85,7 +85,6 @@ command! JsonFormat :execute "%!jq '.'"
   \ | :1
 " 禁用鼠标
 set mouse=
-set ttymouse=
 
 " 粘贴模式
 set pastetoggle=<F2>
