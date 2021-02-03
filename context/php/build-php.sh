@@ -1,23 +1,23 @@
-PHP_VERSION=7.4.13
+PHP_VERSION=7.4.14
 PHP_VERSION_FULL=${PHP_VERSION}
 BASE_PATH=/opt
 PHP_PATH=${BASE_PATH}/php-${PHP_VERSION_FULL}
 PHP_BIN_PATH=${PHP_PATH}/bin
 PHP_SRC_PATH=${PHP_PATH}/src
 
-MSGPACK_VERSION=2.1.1
-IGBINARY_VERSION=3.1.6
+MSGPACK_VERSION=2.1.2
+IGBINARY_VERSION=3.2.1
 MEMCACHED_VERSION=3.1.5
-REDIS_VERSION=5.3.2
+REDIS_VERSION=5.3.3
 EVENT_VERSION=2.5.7
-YAC_VERSION=2.2.1
-YAML_VERSION=2.1.0
-ZEPHIR_PARSER_VERSION=v1.3.4
-SWOOLE_VERSION=4.5.9
+YAC_VERSION=2.3.0
+YAML_VERSION=2.2.1
+ZEPHIR_PARSER_VERSION=v1.3.6
+SWOOLE_VERSION=4.5.11
 MONGODB_VERSION=1.9.0
-GRPC_VERSION=1.33.1
+GRPC_VERSION=1.35.0
 PROTOBUF_VERSION=3.14.0
-XDEBUG_VERSION=3.0.0
+XDEBUG_VERSION=3.0.2
 
 if [[ $1 = "dev" ]]; then
     CFLAGS="-g -O2"
@@ -114,6 +114,7 @@ sed -i 's/;ping.path = \/ping/ping.path = \/php-ping/' www.conf
 sed -i 's/;access.log = log\/$pool.access.log/access.log = var\/log\/$pool.access.log/' www.conf
 sed -i 's/;access.format/access.format/' www.conf
 sed -i 's/;slowlog = log/slowlog = var\/log/' www.conf
+sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/' www.conf
 
 mkdir -p ${PHP_PATH}/etc/conf.d
 cd ${PHP_PATH}/etc/conf.d
