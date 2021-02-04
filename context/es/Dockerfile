@@ -11,7 +11,7 @@ ENV PATH=$JAVA_HOME/bin:$PATH
 
 RUN useradd elasticsearch
 
-RUN wget https://mirrors.huaweicloud.com/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION_FULL}.tar.gz -O /tmp/elasticsearch-${ES_VERSION_FULL}.tar.gz && \
+RUN wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ES_VERSION_FULL}.tar.gz -O /tmp/elasticsearch-${ES_VERSION_FULL}.tar.gz && \
     tar zxf /tmp/elasticsearch-${ES_VERSION_FULL}.tar.gz -C ${BASE_PATH} && \
     rm -f /tmp/elasticsearch-${ES_VERSION_FULL}.tar.gz && \
     ln -s /opt/elasticsearch-${ES_VERSION} ${ES_HOME} && \
