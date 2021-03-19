@@ -1,7 +1,7 @@
 FROM donkeywon/centos-base
 MAINTAINER donkeywon K <donkeywon@163.com>
 
-ENV GITEA_VERSION=1.13.3
+ENV GITEA_VERSION=1.13.4
 ENV GIT_VERSION=2.29.2
 ENV BASE_PATH=/opt
 ENV GIT_HOME=$BASE_PATH/git
