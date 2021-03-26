@@ -2,7 +2,6 @@ docker image rm donkeywon/centos-openresty
 docker image rm donkeywon/centos-php
 docker image rm donkeywon/centos-redis
 docker image rm donkeywon/centos-memcached
-docker image rm donkeywon/centos-gitea
 docker image rm donkeywon/centos-influxdb
 docker image rm donkeywon/centos-kafka
 docker image rm donkeywon/centos-kibana

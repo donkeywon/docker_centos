@@ -112,22 +112,6 @@ services:
       - "5601:5601"
     volumes:
       - ../../:/shared
-  gitea:
-    hostname: gitea
-    container_name: gitea
-    image: donkeywon/centos-gitea
-    privileged: true
-    build:
-      context: ./context/gitea
-      dockerfile: Dockerfile
-    networks:
-      a-network:
-        ipv4_address: 172.19.0.9
-    ports:
-      - "3000:3000"
-    volumes:
-      - /Users/donkeywon/OneDrive:/onedrive
-      - ../../:/shared
   es1:
     hostname: es1
     container_name: es1
