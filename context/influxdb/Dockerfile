@@ -3,7 +3,7 @@ MAINTAINER donkeywon K <donkeywon@163.com>
 
 ENV BASE_PATH=/opt
 ENV INFLUXDB_HOME=$BASE_PATH/influxdb
-ENV INFLUXDB_VERSION=1.8.3
+ENV INFLUXDB_VERSION=1.8.5
 ENV PATH=$INFLUXDB_HOME:$PATH
 
 RUN wget https://dl.influxdata.com/influxdb/releases/influxdb-${INFLUXDB_VERSION}-static_linux_amd64.tar.gz -O /tmp/influxdb-${INFLUXDB_VERSION}-static_linux_amd64.tar.gz && \
