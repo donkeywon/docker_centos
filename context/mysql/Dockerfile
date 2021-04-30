@@ -1,14 +1,14 @@
 FROM donkeywon/centos-base
 MAINTAINER donkeywon K <donkeywon@163.com>
 
-#RUN wget http://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql-community-client-5.7.31-1.el7.x86_64.rpm -O /tmp/1.rpm && \
-#    wget http://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql-community-common-5.7.31-1.el7.x86_64.rpm -O /tmp/2.rpm && \
-#    wget http://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql-community-libs-5.7.31-1.el7.x86_64.rpm -O /tmp/3.rpm && \
-#    wget http://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql-community-server-5.7.31-1.el7.x86_64.rpm -O /tmp/4.rpm && \
+#RUN wget http://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql-community-client-5.7.34-1.el7.x86_64.rpm -O /tmp/1.rpm && \
+#    wget http://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql-community-common-5.7.34-1.el7.x86_64.rpm -O /tmp/2.rpm && \
+#    wget http://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql-community-libs-5.7.34-1.el7.x86_64.rpm -O /tmp/3.rpm && \
+#    wget http://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql-community-server-5.7.34-1.el7.x86_64.rpm -O /tmp/4.rpm && \
 #    dnf localinstall -y /tmp/1.rpm /tmp/2.rpm /tmp/3.rpm /tmp/4.rpm && \
 #    rm -f /tmp/1.rpm /tmp/2.rpm /tmp/3.rpm /tmp/4.rpm
 
-RUN wget http://repo.mysql.com/yum/mysql-5.7-community/docker/x86_64/mysql-community-server-minimal-5.7.32-1.el7.x86_64.rpm -O /tmp/1.rpm && \
+RUN wget http://repo.mysql.com/yum/mysql-5.7-community/docker/el/7/x86_64/mysql-community-server-minimal-5.7.34-1.el7.x86_64.rpm -O /tmp/1.rpm && \
     dnf localinstall -y /tmp/1.rpm && \
     rm -f /tmp/1.rpm
 
