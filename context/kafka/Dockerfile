@@ -3,7 +3,7 @@ MAINTAINER donkeywon K <donkeywon@163.com>
 
 ENV BASE_PATH=/opt
 ENV KAFKA_HOME=$BASE_PATH/kafka
-ENV KAFKA_VERSION=2.7.0
+ENV KAFKA_VERSION=2.7.1
 ENV KAFKA_FULL_VERSION=2.13-$KAFKA_VERSION
 
 RUN dnf install -y java-latest-openjdk
