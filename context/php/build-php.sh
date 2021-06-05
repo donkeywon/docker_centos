@@ -1,4 +1,4 @@
-PHP_VERSION=7.4.19
+PHP_VERSION=7.4.20
 PHP_VERSION_FULL=${PHP_VERSION}
 BASE_PATH=/opt
 PHP_PATH=${BASE_PATH}/php-${PHP_VERSION_FULL}
@@ -15,8 +15,8 @@ YAML_VERSION=2.2.1
 ZEPHIR_PARSER_VERSION=v1.3.6
 SWOOLE_VERSION=4.5.11
 MONGODB_VERSION=1.9.1
-GRPC_VERSION=1.37.1
-PROTOBUF_VERSION=3.17.0
+GRPC_VERSION=1.38.0
+PROTOBUF_VERSION=3.17.2
 XDEBUG_VERSION=3.0.4
 
 if [[ $1 = "dev" ]]; then
@@ -30,7 +30,7 @@ fi
 mkdir -p ${PHP_PATH}
 
 cd ${PHP_PATH}
-wget https://www.php.net/distributions/php-${PHP_VERSION}.tar.gz
+curl -O https://www.php.net/distributions/php-${PHP_VERSION}.tar.gz
 tar zxf php-${PHP_VERSION}.tar.gz
 rm -f php-${PHP_VERSION}.tar.gz
 mv php-${PHP_VERSION} src
@@ -334,6 +334,10 @@ if [[ $1 != "dev" ]]; then
     rm -rf ${PHP_PATH}/src
 fi
 
+cd ${PHP_PATH}
+mv etc etc.origin
+ln -s /shared/env/docker_centos/data/php/php_etc etc
+
 cd ${BASE_PATH}
 tar -Jcpf php-${PHP_VERSION_FULL}.tar.xz php-${PHP_VERSION_FULL}
-mv php-${PHP_VERSION_FULL}.tar.xz /root/
+mv php-${PHP_VERSION_FULL}.tar.xz /shared/env/docker_centos/context/php/
