@@ -2,13 +2,14 @@ FROM donkeywon/centos-base
 MAINTAINER donkeywon K <donkeywon@163.com>
 
 ENV BASE_PATH=/opt
-ENV GOLANG_VERSION=1.16.4
+ENV GOLANG_VERSION=1.16.5
 ENV NODEJS_VERSION=14.17.0
 ENV NODE_HOME=${BASE_PATH}/node
 ENV GOROOT=${BASE_PATH}/go
 ENV GOPATH=/root/workspace/gopath
 ENV PATH=$GOROOT/bin:$NODE_HOME/bin:$PATH
 
+RUN dnf update -y
 RUN dnf groupinstall -y "Development Tools"
 RUN dnf install -y python3-devel lua-devel luajit-devel perl-devel glibc-static vim-enhanced
 # php build deps
