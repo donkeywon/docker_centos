@@ -3,7 +3,7 @@ MAINTAINER donkeywon K <donkeywon@163.com>
 
 ENV BASE_PATH=/opt
 ENV KIBANA_HOME=$BASE_PATH/kibana
-ENV KIBANA_VERSION=7.12.1
+ENV KIBANA_VERSION=7.13.1
 ENV KIBANA_VERSION_FULL=${KIBANA_VERSION}-linux-x86_64
 
 RUN wget https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION_FULL}.tar.gz -O /tmp/kibana-${KIBANA_VERSION_FULL}.tar.gz && \
