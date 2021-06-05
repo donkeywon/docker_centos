@@ -3,7 +3,7 @@ MAINTAINER donkeywon K <donkeywon@163.com>
 
 ENV BASE_PATH=/opt
 ENV OPENRESTY_HOME=$BASE_PATH/openresty
-ENV OPENRESTY_VERSION=1.19.3.1
+ENV OPENRESTY_VERSION=1.19.3.2
 
 RUN dnf install -y libpq libatomic_ops libxslt gd geoip gperftools-libs perl
 

@@ -1,4 +1,4 @@
-OPENRESTY_VERSION=1.19.3.1
+OPENRESTY_VERSION=1.19.3.2
 OPENRESTY_VERSION_FULL=${OPENRESTY_VERSION}
 BASE_PATH=/opt
 OPENRESTY_PATH=${BASE_PATH}/openresty-${OPENRESTY_VERSION_FULL}
@@ -107,14 +107,14 @@ load_module modules/ngx_stream_geoip_module.so;
 user root;
 worker_processes auto;
 worker_cpu_affinity auto;
-worker_rlimit_nofile 102400;
+worker_rlimit_nofile 1024;
 error_log logs/error.log;
 pid var/nginx.pid;
 
 events {
     use epoll;
     accept_mutex off;
-    worker_connections 102400;
+    worker_connections 1024;
 }
 
 http {
@@ -169,36 +169,9 @@ http {
 }
 EOF
 
-mkdir ${OPENRESTY_PATH}/nginx/conf/sites-enabled
-mkdir ${OPENRESTY_PATH}/nginx/conf/sites-available
-cat > ${OPENRESTY_PATH}/nginx/conf/sites-available/default.conf <<"EOF"
-server {
-    listen          80;
-    server_name     localhost;
-    server_tokens   off;
-    root            /shared/code/web;
-    index           index.php index.html;
-
-    #log_by_lua_file ../luascript/accesslog_to_remote.lua;
-
-    location  /php-status {
-        include fastcgi_params;
-        fastcgi_pass 172.19.0.3:9000;
-        fastcgi_param SCRIPT_FILENAME $fastcgi_script_name;
-        allow 127.0.0.1;
-        deny all;
-    }
-
-    location ~* \.php {
-        proxy_buffer_size 64k;
-        proxy_buffers 32 32k;
-        proxy_busy_buffers_size 128k;
-        fastcgi_pass 172.19.0.3:9000;
-        include fastcgi-php.conf;
-    }
-}
-EOF
+mv ${OPENRESTY_PATH}/nginx/conf ${OPENRESTY_PATH}/nginx/conf.origin
+ln -s /shared/env/docker_centos/data/openresty/openresty_conf ${OPENRESTY_PATH}/nginx/conf
+cd ${BASE_PATH} && tar -Jcpf openresty-${OPENRESTY_VERSION}.tar.xz openresty-${OPENRESTY_VERSION} && mv -f openresty-${OPENRESTY_VERSION}.tar.xz /shared/env/docker_centos/context/openresty/
 
 cd ${BASE_PATH}
-tar -Jcpf openresty-${OPENRESTY_VERSION_FULL}.tar.xz openresty-${OPENRESTY_VERSION_FULL}
-mv openresty-${OPENRESTY_VERSION_FULL}.tar.xz /root/
+
