@@ -6,7 +6,9 @@ ENV KAFKA_HOME=$BASE_PATH/kafka
 ENV KAFKA_VERSION=2.7.1
 ENV KAFKA_FULL_VERSION=2.13-$KAFKA_VERSION
 
-RUN dnf install -y java-latest-openjdk
+RUN dnf install -y java-latest-openjdk && \
+    dnf clean all && \
+    rm -rf /var/cache/dnf/*
 
 RUN wget https://mirrors.huaweicloud.com/apache/kafka/${KAFKA_VERSION}/kafka_${KAFKA_FULL_VERSION}.tgz -O /tmp/kafka_${KAFKA_FULL_VERSION}.tgz && \
     tar zxf /tmp/kafka_${KAFKA_FULL_VERSION}.tgz -C ${BASE_PATH} && \
@@ -25,14 +27,10 @@ RUN echo "${KAFKA_HOME}/bin/kafka-console-producer.sh --broker-list 172.19.0.20:
 RUN echo "${KAFKA_HOME}/bin/kafka-topics.sh --bootstrap-server 172.19.0.20:9092 --create --partitions 1 --replication-factor 1 --topic \$1" > /root/create_topic.sh && \
     chmod +x /root/create_topic.sh
 
-
 RUN echo "sh /opt/base.sh" >> /opt/start_kafka.sh
 # wait zookeeper
 RUN echo "sleep 3" >> /opt/start_kafka.sh
 RUN echo "${KAFKA_HOME}/bin/kafka-server-start.sh ${KAFKA_HOME}/config/server.properties" >> /opt/start_kafka.sh
 RUN chmod 777 /opt/start_kafka.sh
-
-RUN dnf clean all && \
-    rm -rf /var/cache/dnf/*
 
 ENTRYPOINT ["sh","-c","/opt/start_kafka.sh"]

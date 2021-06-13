@@ -6,7 +6,9 @@ ENV KAFKA_FULL_VERSION=2.13-${KAFKA_VERSION}
 ENV BASE_PATH=/opt
 ENV KAFKA_HOME=$BASE_PATH/kafka
 
-RUN dnf install -y java-latest-openjdk
+RUN dnf install -y java-latest-openjdk && \
+    dnf clean all && \
+    rm -rf /var/cache/dnf/*
 
 RUN wget https://mirrors.huaweicloud.com/apache/kafka/${KAFKA_VERSION}/kafka_${KAFKA_FULL_VERSION}.tgz -O /tmp/kafka_${KAFKA_FULL_VERSION}.tgz && \
     tar zxf /tmp/kafka_${KAFKA_FULL_VERSION}.tgz -C ${BASE_PATH} && \
@@ -21,8 +23,5 @@ RUN wget https://mirrors.huaweicloud.com/apache/kafka/${KAFKA_VERSION}/kafka_${K
 RUN echo "sh /opt/base.sh" >> /opt/start_zookeeper.sh
 RUN echo "${KAFKA_HOME}/bin/zookeeper-server-start.sh ${KAFKA_HOME}/config/zookeeper.properties" >> /opt/start_zookeeper.sh
 RUN chmod 777 /opt/start_zookeeper.sh
-
-RUN dnf clean all && \
-    rm -rf /var/cache/dnf/*
 
 ENTRYPOINT ["sh","-c","/opt/start_zookeeper.sh"]

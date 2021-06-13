@@ -27,7 +27,4 @@ RUN echo "exec chroot --userspec=elasticsearch:elasticsearch / ${ES_HOME}/bin/el
 RUN echo "tail -f /dev/null" >> /opt/start_es.sh
 RUN chmod 777 /opt/start_es.sh
 
-RUN dnf clean all && \
-    rm -rf /var/cache/dnf/*
-
 ENTRYPOINT ["sh","-c","/opt/start_es.sh"]
